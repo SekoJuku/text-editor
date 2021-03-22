@@ -1,18 +1,28 @@
 import {React,useState,useEffect} from 'react'
 import {useHttp} from "../hooks/http.hook"
+import {useMessage} from "../hooks/message.hook";
 
 export const AuthPage = () => {
-    const {loading,error,request} = useHttp()
+    const message = useMessage()
+    const {loading,error,request,clearError} = useHttp()
     const [form,setForm] = useState({
         email: '', password: ''
     })
 
     useEffect(() => {
-
-    },[error])
+        message(error)
+        clearError()
+    },[error,message])
 
     const changeHandler = event => {
         setForm({...form, [event.target.name]:event.target.value})
+    }
+
+    const loginHandler = async () => {
+        try {
+            const data = await request('/api/auth/login', 'POST',{...form})
+            console.log('Data', data)
+        } catch (e) { }
     }
 
 
@@ -26,7 +36,6 @@ export const AuthPage = () => {
                         <div>
                             <div className="input-field black-text">
                                 <input
-                                    placeholder=""
                                     id="email"
                                     name="email"
                                     type="text"
@@ -37,7 +46,6 @@ export const AuthPage = () => {
                             </div>
                             <div className="input-field black-text">
                                 <input
-                                    placeholder=""
                                     id="password"
                                     name="password"
                                     type="password"
@@ -50,9 +58,15 @@ export const AuthPage = () => {
                     </div>
                     <div className="card-action">
                         <div className="row">
-                            <button className="btn blue ">Login</button>
+                            <button
+                                className="btn blue"
+                                onClick={loginHandler}
+                                disabled={loading}
+                            >
+                                Login
+                            </button>
                         </div>
-                        <span>Don't have account? <a href="/register" className="black-text text-lighten-4">Register</a></span>
+                        <span>Don't have account? <a href="/register" className="light-blue-text ">Register</a></span>
                     </div>
                 </div>
             </div>

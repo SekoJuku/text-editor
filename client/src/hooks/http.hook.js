@@ -4,7 +4,7 @@ export const useHttp = () => {
     const [loading,setLoading] = useState(false)
     const [error,setError] = useState(null)
 
-    const  request = useCallback(async (url,method = 'GET', body = null, headers = {}) => {
+    const request = useCallback(async (url,method = 'GET', body = null, headers = {}) => {
         setLoading(true)
         try {
             if(body) {
@@ -13,11 +13,13 @@ export const useHttp = () => {
             }
             const response = await fetch(url, {method,body,headers})//not working
             const data = await response.json()
-
-            console.log(data.message())
+            console.log(data['message'])
 
             if(!response.ok) {
-                throw new Error(data.message() || 'Request throwing is wrong!')
+                throw new Error('Request throwing is wrong!')
+            }
+            if(data['message'] != "Пользователь создан") {
+                setError(data['message'])
             }
 
             setLoading(false)

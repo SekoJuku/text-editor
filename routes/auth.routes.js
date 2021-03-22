@@ -18,7 +18,7 @@ router.post(
         console.log('Body',req.body)
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
-            res.status(400).json({
+            return res.status(400).json({
                 errors: errors.array(),
                 message: 'Некорректный ввод'
             })
@@ -36,7 +36,7 @@ router.post(
 
         res.status(201).json({message: 'Пользователь создан'})
     } catch (e) {
-        res.status(500).json({"message":"Something is wrong!"})
+        res.status(500).json({message :"Something is wrong!"})
     }
 })
 
@@ -77,7 +77,7 @@ router.post(
         res.json({token,userId: user.id})
 
     } catch (e) {
-        res.status(500).json({"message":"Something is wrong!"})
+        res.status(500).json({message:"Something is wrong!"})
     }
 })
 

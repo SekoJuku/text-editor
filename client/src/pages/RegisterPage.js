@@ -12,7 +12,7 @@ export const RegisterPage = () => {
     useEffect(() => {
         message(error)
         //clearError()
-    },[error,message])
+    },[error])
 
     const changeHandler = event => {
         setForm({...form, [event.target.name]:event.target.value})
@@ -21,7 +21,9 @@ export const RegisterPage = () => {
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register','POST', {...form})
-            console.log('Data ',data)
+            if(!data) {
+
+            }
         } catch (e) { }
     }
 
@@ -31,7 +33,7 @@ export const RegisterPage = () => {
                 <div className="card grey lighten-4 rounded">
                     <div className="card-content white-text">
                         <form>
-                            <span className="card-title black-text">Authorization</span>
+                            <span className="card-title black-text">Registration</span>
                             <div>
                                 <div className="input-field black-text">
                                     <input
@@ -66,7 +68,7 @@ export const RegisterPage = () => {
                                 Sign Up
                             </button>
                         </div>
-                        <span>Already have account? <a href="/" className="black-text text-lighten-4">Log in</a></span>
+                        <span>Already have account? <a href="/" className="light-blue-text">Log in</a></span>
                     </div>
                 </div>
             </div>
