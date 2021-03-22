@@ -11,27 +11,21 @@ export const useHttp = () => {
                 body = JSON.stringify(body)
                 headers['Content-Type'] = 'application/json'
             }
-            const response = await fetch(url, {method,body,headers})//not working
+            const response = await fetch(url, {method,body,headers})
             const data = await response.json()
-            console.log(data['message'])
 
             if(!response.ok) {
-                throw new Error('Request throwing is wrong!')
+                throw new Error(data.message || 'Request throwing is wrong!')
             }
-            if(data['message'] != "Пользователь создан") {
-                setError(data['message'])
-            }
-
             setLoading(false)
-
             return data
         } catch (e) {
             setLoading(false)
-            setError(e.message())
+            setError(e.message)
             throw e
         }
     },[])
 
-    const clearError = () => setError(null)
-    return {loading,request, error,clearError}
+    const clearError = useCallback(() => setError(null),[])
+    return {loading, request, error, clearError}
 }

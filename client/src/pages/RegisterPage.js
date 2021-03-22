@@ -11,8 +11,8 @@ export const RegisterPage = () => {
 
     useEffect(() => {
         message(error)
-        //clearError()
-    },[error])
+        clearError()
+    },[error,message,clearError])
 
     const changeHandler = event => {
         setForm({...form, [event.target.name]:event.target.value})
@@ -21,10 +21,9 @@ export const RegisterPage = () => {
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register','POST', {...form})
-            if(!data) {
+        } catch (e) {
 
-            }
-        } catch (e) { }
+        }
     }
 
     return (
