@@ -6,7 +6,7 @@ const config = require('config')
 const User = require('../models/User')
 const router = Router()
 
-// /api/auth
+// /api/text
 router.post(
     '/register',
     [
