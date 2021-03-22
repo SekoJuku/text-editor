@@ -14,8 +14,10 @@ export const useHttp = () => {
             const response = await fetch(url, {method,body,headers})//not working
             const data = await response.json()
 
+            console.log(data.message())
+
             if(!response.ok) {
-                throw new Error(data.message() || 'Something is wrong!')
+                throw new Error(data.message() || 'Request throwing is wrong!')
             }
 
             setLoading(false)

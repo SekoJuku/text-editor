@@ -1,10 +1,13 @@
 const express = require('express')
 const config = require('config')
+const cors = require('cors')
 const {check,validationResult} = require('express-validator')
 const mongoose = require('mongoose')
 
 const app = express()
 const PORT = config.get('port') || 5000
+
+app.use(cors())
 
 app.use(express.json({extended: true}))
 
@@ -24,4 +27,3 @@ async function start() {
     }
 }
 start()
-//

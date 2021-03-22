@@ -24,15 +24,14 @@ router.post(
             })
         }
         const {email,password} = req.body
-        const user = await User.findOne({email})
-
-        if(user) {
+        const user1 = await User.findOne({email})
+        console.log(!user1)
+        if(user1) {
             return res.status(400).json({message:'Такой пользователь существует'})
         }
 
-        const hashedPassword = await bcrypt.hash(password)
+        const hashedPassword = await bcrypt.hash(password,12)
         const newUser = new User({email,password: hashedPassword})
-
         await newUser.save()
 
         res.status(201).json({message: 'Пользователь создан'})
