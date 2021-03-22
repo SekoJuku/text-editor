@@ -6,7 +6,7 @@ const router = Router()
 router.post(
     '/create',
     [
-        check('text').exists()
+        check('value').exists()
     ],
     async (req,res) => {
         const errors = validationResult(req)
@@ -16,7 +16,7 @@ router.post(
                 message: 'Некорректный ввод'
             })
         }
-        const {text} = req.body
+        const {value} = req.body
 
 
 
