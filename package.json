@@ -1,0 +1,36 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "Online text editor",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SekoJuku/text-editor.git"
+  },
+  "keywords": [
+    "react",
+    "express",
+    "mongodb"
+  ],
+  "author": "SekoJuku",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SekoJuku/text-editor/issues"
+  },
+  "homepage": "https://github.com/SekoJuku/text-editor#readme",
+  "dependencies": {
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.0",
+    "mongoose": "^5.12.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
