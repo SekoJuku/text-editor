@@ -1,13 +1,11 @@
-import {React, useState, useCallback, useEffect, useContext} from "react"
+import {React, useState, useEffect, useContext} from "react"
 import {AuthContext} from "../context/AuthContext"
 import {useHttp} from "../hooks/http.hook"
-import {useMessage} from "../hooks/message.hook"
 
 
 export const CreateText = () => {
     const auth = useContext(AuthContext)
-    const message = useMessage()
-    const {loading,error,request,clearError} = useHttp()
+    const {loading,request} = useHttp()
     const [value,setValue] = useState('')
 
     const createHandler = async () => {

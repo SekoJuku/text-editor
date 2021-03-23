@@ -4,6 +4,7 @@ const storeageName = 'userData'
 
 export const useAuth = () => {
     const [token,setToken] = useState(null)
+    const [ready,setReady] = useState(false)
     const [userId,setUserId] = useState(null)
 
     const login = useCallback((JWTToken, id) => {
@@ -27,8 +28,9 @@ export const useAuth = () => {
         if(data && data.token) {
             login(data.token,data.userId)
         }
-    },[login])
+        setReady(true)
+    },[login,ready])
 
 
-    return {login,logout,token,userId}
+    return {login,logout,token,userId,ready}
 }
