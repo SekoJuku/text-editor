@@ -11,7 +11,7 @@ export const useAuth = () => {
         setUserId(id)
 
         localStorage.setItem(storeageName,JSON.stringify({
-            userId,token
+            userId:id,token:JWTToken
         }))
     },[])
 
