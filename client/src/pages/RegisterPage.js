@@ -40,6 +40,7 @@ export const RegisterPage = () => {
                                         name="email"
                                         type="text"
                                         className="black-text"
+                                        value={form.email}
                                         onChange={changeHandler}
                                     />
                                     <label htmlFor="email">Email</label>
@@ -50,6 +51,7 @@ export const RegisterPage = () => {
                                         name="password"
                                         type="password"
                                         className="black-text"
+                                        value={form.password}
                                         onChange={changeHandler}
                                     />
                                     <label htmlFor="password">Password</label>
