@@ -43,4 +43,24 @@ router.get(
         res.status(500).json({message :"Something is wrong!"})
     }
     })
+router.put(
+    '/edit/:id',
+    auth,
+    async (req,res) => {
+        try {
+            await Text.updateOne({_id:req.params.id},{value:req.body.value})
+            res.status(204).json(`Text is updated. ID: ${req.params.id}`)
+        } catch (e) { }
+    }
+)
+router.delete(
+    '/delete/:id',
+    auth,
+    async (req,res) => {
+    try {
+        await Text.deleteOne({_id:req.params.id})
+        res.status(204).json({message: 'Delete completed'})
+    } catch (e) { }
+    }
+)
 module.exports = router
