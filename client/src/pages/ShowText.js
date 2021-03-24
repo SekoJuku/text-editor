@@ -5,33 +5,33 @@ import {Loader} from "./components/Loader"
 import {TextListCards} from "./components/TextListCards"
 
 export const ShowText = () => {
-    const {request,loading} = useHttp()
-    const {texts,setTexts} = useState(null)
-    const {wait,setWait} = useState(true)
     const {token} = useContext(AuthContext)
+    const [data,setData] = useState([])
+    const {request,loading} = useHttp()
 
-    const getAllTexts = useCallback( async () => {
+
+    const fetchTexts = useCallback( async () => {
         try {
-            const fetched = await request('/api/text/','GET',null,{Authorization: 'Bearer '+ token})
-            setTexts(fetched)
-            setWait(false)
+            const fetched = await request('/api/text','GET',null,{
+                Authorization: `Bearer ${token}`
+            })
+            setData(fetched)
         } catch (e) { }
-    },[token,request,setTexts])
+    },[request,token])
 
     useEffect(() => {
-        getAllTexts()
-    },[getAllTexts])
+        fetchTexts()
+    },[fetchTexts])
 
     if(loading) {
-        return <Loader />
+        return <Loader/>
     }
-//  {!loading && <TextListCards texts={texts} />}
-    if(wait === false) {
-        console.log(texts)
-    }
+
+// <p className="center">{(data?data:'No Data')}</p>
     return (
         <>
-
+          <TextListCards texts={data} />
         </>
     )
+
 }

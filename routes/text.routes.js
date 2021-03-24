@@ -33,22 +33,12 @@ router.post(
 
     })
 router.get(
-    '/',
+    '',
     auth,
     async (req,res) => {
     try {
         const texts = await Text.find({owner: req.user.userId})
         res.json(texts)
-    } catch (e) {
-        res.status(500).json({message :"Something is wrong!"})
-    }
-    })
-router.put(
-    '/edit/:id',
-    auth,
-    async (req,res) => {
-    try {
-
     } catch (e) {
         res.status(500).json({message :"Something is wrong!"})
     }

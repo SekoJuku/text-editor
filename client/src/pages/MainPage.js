@@ -5,8 +5,8 @@ import {ShowText} from "./ShowText"
 export const MainPage = () => {
     return (
         <div>
-            <CreateText/>
-            <ShowText/>
+            <CreateText />
+            <ShowText />
         </div>
     )
 }

@@ -17,6 +17,7 @@ export const useHttp = () => {
             if(!response.ok) {
                 throw new Error(data.message || 'Request throwing is wrong!')
             }
+            //const newData = JSON.stringify(data) if I use this it shows the data.
             setLoading(false)
             return data
         } catch (e) {

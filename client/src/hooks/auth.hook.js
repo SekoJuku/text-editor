@@ -29,7 +29,7 @@ export const useAuth = () => {
             login(data.token,data.userId)
         }
         setReady(true)
-    },[login,ready])
+    },[login])
 
 
     return {login,logout,token,userId,ready}

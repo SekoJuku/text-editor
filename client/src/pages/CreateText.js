@@ -4,13 +4,13 @@ import {useHttp} from "../hooks/http.hook"
 
 
 export const CreateText = () => {
-    const auth = useContext(AuthContext)
+    const {token} = useContext(AuthContext)
     const {loading,request} = useHttp()
     const [value,setValue] = useState('')
 
     const createHandler = async () => {
         try {
-            const data = await request('/api/text/create','POST',{value},{Authorization: 'Bearer '+ auth.token})
+            const data = await request('/api/text/create','POST',{value},{Authorization: `Bearer ${token}`})
             console.log(data)
         } catch (e) { }
     }

@@ -2,7 +2,7 @@ import React from "react"
 
 export const TextListCards = ({texts}) => {
     if(!texts.length) {
-        return <p className="center">No Texts. Create one!</p>
+        return <h5 className="center">No Texts. Create one!</h5>
     }
 
     return(
