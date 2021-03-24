@@ -2,7 +2,7 @@ import React,{useEffect,useState,useCallback,useContext} from "react"
 import {AuthContext} from "../context/AuthContext"
 import {useHttp} from "../hooks/http.hook"
 import {Loader} from "./components/Loader"
-import {TextListCards} from "./components/TextListCards"
+import {TextList} from "./components/TextList"
 
 export const ShowText = () => {
     const {token} = useContext(AuthContext)
@@ -30,7 +30,7 @@ export const ShowText = () => {
 // <p className="center">{(data?data:'No Data')}</p>
     return (
         <>
-          <TextListCards texts={data} />
+          <TextList texts={data} />
         </>
     )
 
