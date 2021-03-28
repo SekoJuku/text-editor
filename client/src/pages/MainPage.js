@@ -1,5 +1,5 @@
 import React from "react"
-import {TextList} from "./components/TextList"
+import {TextList} from "./TextList"
 import {CreateText} from "./CreateText"
 
 export const MainPage = () => {

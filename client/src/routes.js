@@ -1,6 +1,6 @@
 import React from "react"
 import {Switch,Route,Redirect} from 'react-router-dom'
-import {TextList} from "./pages/components/TextList"
+import {TextList} from "./pages/TextList"
 import {MainPage} from "./pages/MainPage"
 import {AuthPage} from "./pages/AuthPage"
 import {RegisterPage} from "./pages/RegisterPage"
