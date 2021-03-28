@@ -1,9 +1,10 @@
 import React from "react"
 import {Switch,Route,Redirect} from 'react-router-dom'
+import {TextList} from "./pages/components/TextList"
 import {MainPage} from "./pages/MainPage"
 import {AuthPage} from "./pages/AuthPage"
 import {RegisterPage} from "./pages/RegisterPage"
-import {ShowText} from "./pages/ShowText";
+import {Test} from "./pages/Test"
 
 export const useRoutes = isAuthenficated => {
     if(isAuthenficated) {
@@ -13,7 +14,10 @@ export const useRoutes = isAuthenficated => {
                     <MainPage/>
                 </Route>
                 <Route path="/alltexts" exact>
-                    <ShowText />
+                    <TextList />
+                </Route>
+                <Route path="/test" exact>
+                    <Test />
                 </Route>
                 <Redirect to="/texts"/>
             </Switch>

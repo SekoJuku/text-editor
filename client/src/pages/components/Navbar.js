@@ -19,6 +19,7 @@ export const Navbar = () => {
                 <ul id="nav-mobile" className="right">
                     <li><a href="/alltexts">Texts</a></li>
                     <li><a href="/texts">CreateTexts</a></li>
+                    <li><a href="/test">Test</a></li>
                     <li>
                         <button
                             className="btn red waves-effect waves-light darken-4"

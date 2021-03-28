@@ -24,6 +24,7 @@ export const useAuth = () => {
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem(storeageName))
+        console.log(data)
 
         if(data && data.token) {
             login(data.token,data.userId)

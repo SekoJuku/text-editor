@@ -1,43 +1,48 @@
-import React, {useEffect,useCallback,useState,useContext} from "react"
-import {AuthContext} from "../../context/AuthContext"
-import {useHttp} from "../../hooks/http.hook"
-import {Loader} from "./Loader"
+import {React,useCallback,useState,useEffect,useContext} from 'react'
+import {AuthContext} from "../../context/AuthContext";
+import {useHttp} from "../../hooks/http.hook";
+import {Loader} from "./Loader";
 
 
-export const TextList = ({texts}) => {
+export const TextList = () => {
     const {token} = useContext(AuthContext)
     //const [id,setId] = useState(null)
-    const [val,setVal] = useState({})
+    const [texts,setTexts] = useState({})
+    const [update,setUpdate] = useState(false)
     const {request,loading} = useHttp()
+
+    const fetchTexts = useCallback( async () => {
+        try {
+            let fetched = await request('/api/text','GET',null,{
+                Authorization: `Bearer ${token}`
+            })
+            console.log(fetched)
+            setTexts(fetched)
+        } catch (e) { }
+    },[request,token])
 
     useEffect(() => {
         window.M.updateTextFields()
     },[])
 
     useEffect(() => {
-        let newVal = {}
-        texts.map((text) => {
-            newVal[text._id] = text.value
-        })
-        setVal(newVal)
-    },[texts])
+        fetchTexts()
+    },[fetchTexts,update])
 
     const deleteHandler = useCallback(async (id) => {
         try {
-            await request(`api/text/delete/${id}`,'DELETE',null,{Authorization: `Bearer ${token}`})
+            let data = await request(`api/text/delete/${id}`,'DELETE',null,{Authorization: `Bearer ${token}`})
+
         } catch (e) { }
-    },[request,token])
+        setUpdate(!update)
+    },[request,token,update])
 
     const editHandler = useCallback( async  (id) => {
         try {
-            await request(`api/text/edit/${id}`,'PUT',{value: val[id]},{Authorization: `Bearer ${token}`})
+            await request(`api/text/edit/${id}`,'PUT',{value: ''},{Authorization: `Bearer ${token}`})
         } catch (e) { }
-    },[request,token])
-
-    const changeHandler = event => {
-
-        //setVal({...val,[event.target.name]:event.target.value})
-    }
+        setUpdate(!update)
+    },[request,token,update])
 
     if(loading) {
         return <Loader />
@@ -64,17 +69,10 @@ export const TextList = ({texts}) => {
                         <td><input
                             type="text"
                             value={text._id}
+                            disabled
                             hidden
                         />
-                            <input
-                            type="text"
-                            name="value"
-                            value={val[text._id]}
-                            onChange={event => {
-                                let id = text._id.toString()
-                                setVal(val[id] = event.target.value)
-                            }}
-                        /></td>
+                            {text.value}</td>
                         <td>
                             <button
                                 className="btn btn-small green darken-1"
