@@ -35,12 +35,14 @@ export const TextList = () => {
     const changeHandler = (event) => {
         let value = event.target.value
         setNewText({
+            ...newText,
             [event.target.name]: value
         })
         console.log(newText)
     }
 
     const deleteHandler = useCallback(async (id) => {
+        console.log(newText)
         try {
             let data = await request(`api/text/delete/${id}`,'DELETE',null,{Authorization: `Bearer ${token}`})
         } catch (e) { }
