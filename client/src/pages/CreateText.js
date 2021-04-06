@@ -12,6 +12,7 @@ export const CreateText = () => {
         try {
             const data = await request('/api/text/create','POST',{value},{Authorization: `Bearer ${token}`})
             console.log(data)
+            window.location.reload()
         } catch (e) { }
     }
 

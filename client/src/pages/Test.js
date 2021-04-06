@@ -1,17 +1,28 @@
-import {React, useState,useEffect} from 'react'
+import React, { useState } from "react";
+import Editable from "./components/Editable";
 
 export const Test = () => {
-    const {update,setUpdate} = useState(false)
+    // State for the input
+    const [task, setTask] = useState("");
 
-    useEffect( () => {
-        console.log('Hello ', update)
-    },[update])
+    /*
+      Enclose the input element as the children to the Editable component to make it as inline editable.
+    */
+
+    const HandleChange = (e) => {
+        console.log(task)
+        setTask(e.target.value)
+
+    }
 
     return (
-        <div>
-            <button onClick={event => setUpdate(!update)}>
-                Add
-            </button>
-        </div>
-    )
-}
+
+            <input
+                type="text"
+                name="task"
+                placeholder="Write a task name"
+                value={task}
+                onChange={e => HandleChange(e)}
+            />
+            );
+};
