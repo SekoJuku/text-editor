@@ -17,8 +17,6 @@ export const Navbar = () => {
             <div className="nav-wrapper grey darken-1" style={{padding: '0 2em'}}>
                 <span className="brand-logo"><img src="https://image.flaticon.com/icons/png/512/7/7487.png" alt="Cloud"/></span>
                 <ul id="nav-mobile" className="right">
-                    <li><a href="/texts">CreateTexts</a></li>
-                    <li><a href="/test">Test</a></li>
                     <li>
                         <button
                             className="btn red waves-effect waves-light darken-4"

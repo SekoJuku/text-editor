@@ -2,6 +2,7 @@ import {React,useCallback,useState,useEffect,useContext} from 'react'
 import {AuthContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
 import {Loader} from "./components/Loader";
+import {Text} from "./components/Text";
 
 
 export const TextList = () => {
@@ -9,7 +10,6 @@ export const TextList = () => {
     //const [id,setId] = useState(null)
     const [texts,setTexts] = useState({})
     const [newText,setNewText] = useState({})
-    const {} = useState({})
     const [update,setUpdate] = useState(false)
     const {request,loading} = useHttp()
 
@@ -33,10 +33,11 @@ export const TextList = () => {
 
 
     const changeHandler = (event) => {
-        let value = event.target.value
+        const target = event.target
+        const value = target.value
         setNewText({
             ...newText,
-            [event.target.name]: value
+            [target.name]: value
         })
         console.log(newText)
     }
@@ -46,7 +47,6 @@ export const TextList = () => {
         try {
             let data = await request(`api/text/delete/${id}`,'DELETE',null,{Authorization: `Bearer ${token}`})
         } catch (e) { }
-        setUpdate(!update)
     },[request,token,update])
 
     const editHandler = useCallback( async  (id) => {
@@ -54,7 +54,6 @@ export const TextList = () => {
             console.log(newText)
             await request(`api/text/edit/${id}`,'PUT',{value: `${newText[id]}`},{Authorization: `Bearer ${token}`})
         } catch (e) { }
-        setUpdate(!update)
     },[request,token,update])
 
     if(loading) {
@@ -77,13 +76,13 @@ export const TextList = () => {
             <tbody>
             {texts.map((text,i) => {
                 return (
-                    <tr key={text._id}>
+                    <tr>
                         <td>{i+1}</td>
                         <td>
                             <input
                                 type="text"
                                 name={text._id}
-                                placeholder={text.value}
+                                value={text.value}
                                 onChange={changeHandler}
                             />
                         </td>
