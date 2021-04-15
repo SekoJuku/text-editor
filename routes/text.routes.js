@@ -44,6 +44,18 @@ router.get(
         res.status(500).json({message :"Something is wrong!"})
     }
     })
+router.get(
+    '/:id',
+    auth,
+    async (req,res) => {
+        try {
+            const text = await Text.findOne({_id:req.params.id})
+            res.json(text)
+        } catch (e) {
+            res.status(500).json({message :"Something is wrong!"})
+        }
+    }
+)
 router.put(
     '/edit/:id',
     auth,

@@ -1,17 +1,20 @@
 import {React,useCallback,useState,useEffect,useContext} from 'react'
 import {AuthContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
+import {HookingText} from "./components/HookingText";
 import {Loader} from "./components/Loader";
 import {Text} from "./components/Text";
+import {Text1} from "./components/Text1"
 
 
 export const TextList = () => {
     const {token} = useContext(AuthContext)
     //const [id,setId] = useState(null)
     const [texts,setTexts] = useState({})
+    const {request,loading} = useHttp()
     const [newText,setNewText] = useState({})
     const [update,setUpdate] = useState(false)
-    const {request,loading} = useHttp()
+
 
     const fetchTexts = useCallback( async () => {
         try {
@@ -30,31 +33,6 @@ export const TextList = () => {
     useEffect(() => {
         fetchTexts()
     },[fetchTexts,update])
-
-
-    const changeHandler = (event) => {
-        const target = event.target
-        const value = target.value
-        setNewText({
-            ...newText,
-            [target.name]: value
-        })
-        console.log(newText)
-    }
-
-    const deleteHandler = useCallback(async (id) => {
-        console.log(newText)
-        try {
-            let data = await request(`api/text/delete/${id}`,'DELETE',null,{Authorization: `Bearer ${token}`})
-        } catch (e) { }
-    },[request,token,update])
-
-    const editHandler = useCallback( async  (id) => {
-        try {
-            console.log(newText)
-            await request(`api/text/edit/${id}`,'PUT',{value: `${newText[id]}`},{Authorization: `Bearer ${token}`})
-        } catch (e) { }
-    },[request,token,update])
 
     if(loading) {
         return <Loader />
@@ -75,31 +53,12 @@ export const TextList = () => {
             </thead>
             <tbody>
             {texts.map((text,i) => {
+                console.log(text)
                 return (
-                    <tr>
-                        <td>{i+1}</td>
-                        <td>
-                            <input
-                                type="text"
-                                name={text._id}
-                                value={text.value}
-                                onChange={changeHandler}
-                            />
-                        </td>
-                        <td>
-                            <button
-                                className="btn btn-small green darken-1"
-                                style={{marginRight:"1em",marginLeft:"1em"}}
-                                onClick={(event) => editHandler(text._id)}
-                            >Edit</button>
-                            <button
-                                className="btn btn-small red darken-2"
-                                onClick={() => deleteHandler(text._id)}
-                            >Delete</button>
-                        </td>
-                    </tr>
+                    <Text1 item={text} i={i} />
                 )
-            })}
+            })
+            }
             </tbody>
         </table>
     )
