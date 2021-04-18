@@ -55,7 +55,7 @@ export const TextList = () => {
             {texts.map((text,i) => {
                 console.log(text)
                 return (
-                    <Text1 item={text} i={i} />
+                    <Text item={text} i={i} />
                 )
             })
             }

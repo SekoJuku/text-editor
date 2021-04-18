@@ -37,7 +37,12 @@ export class Text extends Component {
                 body = JSON.stringify(body)
                 headers['Content-Type'] = 'application/json'
             }
-            const response = await fetch(url, {method,body,headers})
+            const requestOption = {
+                method: method,
+                headers: headers,
+                body: body
+            }
+            const response = await fetch(url, requestOption)
             const data = await response.json()
 
             if(!response.ok) {
@@ -51,13 +56,9 @@ export class Text extends Component {
     }
 
     async editHandler() {
+        console.log(this.state.id)
         try {
-            const response = fetch(`api/text/edit/${this.state.id}`, {
-                    method:'PUT',
-                    body:{value: `${this.state.value}`},
-                    headers:{Authorization: `Bearer ${this.state.token}`}
-                }
-            )
+            const response = await this.request(`api/text/edit/${this.state.id}`,'PUT',{value: `${this.state.value}`}, {Authorization: `Bearer ${this.state.token}`})
             //const data = await this.request(`api/text/edit/${this.state.id}`, 'PUT', {value: `${this.state.value}`}, {Authorization: `Bearer ${this.state.token}`})
             console.log('Editing!')
         } catch (e) {
@@ -67,12 +68,13 @@ export class Text extends Component {
 
     async deleteHandler() {
         try {
-            const data = await this.request(`api/text/delete/${this.state.id}`, 'DELETE', null, {Authorization: `Bearer ${this.state.token}`})
+            const response = await this.request(`api/text/delete/${this.state.id}`, 'DELETE', null, {Authorization: `Bearer ${this.state.token}`})
+            console.log('Deleting!')
+            window.location.reload()
         } catch (e) {
             console.log(e.message)
         }
     }
-
 
     render() {
         return (
@@ -83,18 +85,18 @@ export class Text extends Component {
                         type="text"
                         name="value"
                         value={this.state.value}
-                        onChange={this.changeHandler}
+                        onChange={this.changeHandler.bind(this)}
                     />
                 </td>
                 <td>
                     <button
                         className="btn btn-small green darken-1"
                         style={{marginRight:"1em",marginLeft:"1em"}}
-                        onClick={this.editHandler}
+                        onClick={this.editHandler.bind(this)}
                     >Edit</button>
                     <button
                         className="btn btn-small red darken-2"
-                        onClick={this.deleteHandler}
+                        onClick={this.deleteHandler.bind(this)}
                     >Delete</button>
                 </td>
             </tr>
