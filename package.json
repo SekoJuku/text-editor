@@ -32,7 +32,7 @@
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
-    "mongoose": "^5.12.1"
+    "mongoose": "^5.13.20"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
